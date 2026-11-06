@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pedra, Papel e Tesoura</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>
+            <span class="mao-titulo">✊</span>
+            Pedra, Papel e Tesoura
+        </h1>
+
+        <p>Escolha sua jogada e desafie o computador!</p>
+
+        <!-- Indicador de dificuldade -->
+        <div class="modo">
+            <span>⚡ DESAFIE O COMPUTADOR</span>
+        </div>
+
+        <!-- Botão de dificuldade -->
+        <button
+            type="button"
+            class="btn-dificuldade"
+            onclick="alternarDificuldade()">
+
+            ⚡ Modo Difícil:
+            <span id="nivelDificuldade">ATIVADO</span>
+
+        </button>
+
+        <!-- Opções do jogo -->
+        <form method="POST">
+
+            <div class="opcoes">
+
+                <button type="submit" name="escolha" value="pedra">
+                    <span>✊</span>
+                    Pedra
+                </button>
+
+                <button type="submit" name="escolha" value="papel">
+                    <span>✋</span>
+                    Papel
+                </button>
+
+                <button type="submit" name="escolha" value="tesoura">
+                    <span>✌️</span>
+                    Tesoura
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- Resultado -->
+        {% if resultado %}
+
+        <section class="resultado">
+
+            <h2>{{ resultado }}</h2>
+
+            <div class="jogadas">
+
+                <div>
+                    <span>👤 Você</span>
+                    <strong>{{ jogador|capitalize }}</strong>
+                </div>
+
+                <div>
+                    <span>🤖 Computador</span>
+                    <strong>{{ computador|capitalize }}</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+        <!-- Placar -->
+        <section class="placar">
+
+            <div class="card-placar vitorias">
+                <span>🏆</span>
+                <h3>Vitórias</h3>
+                <strong>{{ vitorias }}</strong>
+            </div>
+
+            <div class="card-placar derrotas">
+                <span>💔</span>
+                <h3>Derrotas</h3>
+                <strong>{{ derrotas }}</strong>
+            </div>
+
+            <div class="card-placar empates">
+                <span>🤝</span>
+                <h3>Empates</h3>
+                <strong>{{ empates }}</strong>
+            </div>
+
+        </section>
+
+        <!-- Reiniciar placar -->
+        <form action="{{ url_for('reset') }}" method="POST">
+
+            <button type="submit" class="btn-reset">
+                ↻ Reiniciar placar
+            </button>
+
+        </form>
+
+        <footer>
+            Desenvolvido com Python 🐍
+        </footer>
+
+    </main>
+
+    <!-- Controle visual da dificuldade -->
+    <script>
+
+        function alternarDificuldade() {
+
+            const nivel = document.getElementById("nivelDificuldade");
+
+            if (nivel.textContent.trim() === "ATIVADO") {
+
+                nivel.textContent = "DESATIVADO";
+
+            } else {
+
+                nivel.textContent = "ATIVADO";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
